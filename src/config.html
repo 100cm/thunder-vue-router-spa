@@ -1,0 +1,43 @@
+
+<div >
+    <h1>基础配置</h1>
+    <blockquote>
+        <p>极速的开发. 简易的配置</p>
+    </blockquote>
+    <p>Thunder 目前暂定使用默认配置 后续的配置会持续补上.</p>
+    <figure class="highlight html">
+        <pre>
+
+public class App implements Lightning {
+    @Override
+    public void init(Thunder thunder) {
+        //打开数据库
+        DB.open("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1/test", "root", "root");
+        //默认的注解扫描包 不填写都为全部扫描.
+        thunder.setAppBasePackage("");
+        //增加单条post 路由 指定指向welcome类下的create方法
+        thunder.addPostRoute("/welcome/create","create",new Welcome());
+        thunder.addResource("demo",new Welcome());
+    }
+}
+        </pre>
+
+    </figure>
+<p> 当前默认的页面模板存放位置为WEB-INF下. 当前默认不渲染css 等静态文件 需要在 web.xml增加默认的servlet渲染</p>
+    <figure class="highlight html">
+        <pre>
+ &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.jpg&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.js&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.css&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+        </pre>
+    </figure>
+</div>

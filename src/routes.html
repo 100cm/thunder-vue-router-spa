@@ -1,0 +1,135 @@
+
+<div >
+    <h1>路由配置</h1>
+    <blockquote>
+        <p>经典的restful风格路由.</p>
+    </blockquote>
+    <p>我们的应用目前还没有任何路由配置 接下来我们去给应用添加资源以及路由,首先我们增加welcome路由</p>
+    <figure class="highlight html">
+        <pre>
+public class App implements Lightning{
+    @Override
+    public void init(Thunder thunder) {
+      //这里会增加restful 7条路由
+      //get -> /welcome  method:index
+      //get -> /welcome/new  method:fresh
+      //post -> /welcome/create  method:create
+      //put  -> /welcome/:id/update method:update
+      //get  -> /welcome/:id/edit   method:edit
+      //delete  -> /welcome/:id/delete method:delete
+      //get -> /welcome/:id   method:show
+
+      //此资源调用welcom类下的方法
+      thunder.addResource("welcome",new Welcome());
+
+      //增加单独一条路由 执行welcome 类下index方法
+      thunder.addRoute("/demo", Var.GET,"index",new Welcome());
+     }
+}
+        </pre>
+
+    </figure>
+    <p> 过滤器的使用</p>
+    <figure class="highlight html">
+            <pre>
+      thunder.before("/demo",Var.GET,(request,response)->{
+         System.out.print("我拦截demo这条路由啦！");
+      });
+            </pre>
+    </figure>
+    <p>也可以用大家熟悉的注解方式增加路由</p>
+    <figure class="highlight html">
+        <pre>
+@Controller
+public class test {
+
+  //IOC 依赖注入
+  @Inject
+  Util util;
+
+  @Action(value = "/demo",method = "GET")
+  //Aop 拦截此方法
+  @Check
+  public void demo(Request request, Response response){
+      System.out.print("hello world");
+  }
+}
+        </pre>
+    </figure >
+
+    <p>当然类似于spring mvc 的路由也可以使用</p>
+    <figure class="highlight html">
+        <pre>
+    @Action(value = "/welcome/:id",method = "GET")
+    public void demo(Request request ,Response response){
+        String id = request.pathVariable("id");
+    }
+        </pre>
+    </figure>
+    <p>多重资源也是可以的(但是不建议嵌套2层以上的资源)</p>
+    <figure class="highlight html">
+        <pre>
+    @Action(value = "/welcome/:id/user/:userid",method = "GET")
+    public void demo2(Request request ,Response response){
+        String id = request.pathVariable("id");
+        String userid = request.pathVariable("userid");
+    }
+        </pre>
+    </figure>
+    <p>请求相应-表单</p>
+    <figure class="highlight html">
+        <pre>
+&lt;form method="post" action="/welcome/create"&gt;
+&lt;input type="text" name="username" /&gt;
+&lt;button type="submit"&gt;submit&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+    </figure>
+    <p>请求相应-后台方法</p>
+    <figure class="highlight html">
+        <pre>
+public void create(Request request ,Response response){
+        //当前对于简单的对象获取是可行的 但是对于复杂对象还是不可以 后续会完善
+        User user = request.getModel(User.class);
+
+        System.out.print(user.getUsername());
+
+   }
+        </pre>
+    </figure>
+    <p>重定向以及页面渲染</p>
+    <figure class="highlight html">
+        <pre>
+public void create(Request request ,Response response){
+
+        User user = (User)request.getModel(User.class);
+
+        System.out.print(user.getUsername());
+
+        //进行页面渲染
+        response.render("/hello");
+
+        //进行重定向
+        response.redirect_to("/welcome/3");
+  }
+        </pre>
+    </figure>
+    <p>参数传递</p>
+    <figure class="highlight html">
+        <pre>
+//发送参数
+request.sendParams("key",value);
+//获取资源id
+request.resourceId();
+//获取参数
+request.params("key");
+request.paramsAsInt("key")
+//发送JSON
+People people= new People();
+people.setPass("21313");
+ response.renderJSON(people);
+//也可以发送Map数据格式的
+response.renderJSON(map)
+        </pre>
+    </figure>
+</div>

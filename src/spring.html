@@ -1,0 +1,111 @@
+<div>
+<h1>IOC && AOP</h1>
+<blockquote>
+    <p>IOC的使用
+    </p>
+</blockquote>
+<p>和spring 的ioc 使用大同小异</p>
+<label>当前 需要在Demo这个类 加上@component注解</label>
+<figure class="highlight html">
+    <pre>
+//将demo注入容器
+ @Inject
+ Demo demo
+    </pre>
+</figure>
+
+<blockquote>
+    <p>Aop的使用
+    </p>
+</blockquote>
+<p>AOP的使用相对来讲比较复杂一下 在下使用的是cglib进行动态代理<br>
+    Aop 通俗理解为动态代理 再通俗一点。就是再执行某件事之前 我要先交给小弟先准备工具<br>
+
+    自己再做这件事 如果小弟那边出错 我就不用做了。<br>
+
+    首先我们要建立一个注解 当作判断切入点。<br>
+
+    现在我们拥有一个@check 注解</p>
+
+<label>首先在我们写一个注解类</label>
+<figure class="highlight html">
+    <pre>
+ @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Check {
+}
+</pre>
+</figure>
+<p>现在来写我们的小弟</p>
+<figure class="highlight html">
+    <pre>
+/**要代理的注解类 或注解方法
+*
+*/
+@Aspect(value = Check.class)
+public class Aoptest extends AspectProxy {
+
+/**
+ * 重写父类代理方法 对应前置增强 后置增强 环绕增强
+ * @param c 对应的代理类
+ * @param method 代理执行方法
+ * @param params 参数
+ * @throws Throwable
+ */
+public void before(Class&lt;?&gt; c , Method method, Object[] params)throws Throwable{
+
+    System.out.print(" i am in proxy");
+
+}
+
+/**
+ * 环绕增强 如果返回true 则进行前后增强  false则只执行被切入方法
+ * @param c
+ * @param method
+ * @param params
+ * @return
+ * @throws Throwable
+ */
+public boolean intercept(Class&lt;?&gt; c ,Method method,Object[] params)throws Throwable{
+    //返回
+    return true;
+}
+
+/**
+ *
+ * @param c
+ * @param method
+ * @param params
+ * @param o 代理对象
+ * @throws Throwable
+ */
+public void after(Class&lt;?&gt; c ,Method method,Object[] params , Object o)throws Throwable{
+
+
+}
+}
+    </pre>
+</figure>
+<p>接下来我们在大哥上面加标记(@Check)</p>
+<figure class="highlight html">
+    <pre>
+@Controller
+public class test {
+
+  //IOC 依赖注入
+  @Inject
+  Util util;
+
+  @Action(value = "/demo",method = "GET")
+  //Aop 拦截此方法
+  @Check
+  public void demo(Request request, Response response){
+      System.out.print("hello world");
+  }
+}
+    </pre>
+</figure>
+<p>
+    小弟执行顺序为 before -> 大哥方法 -> after
+</p>
+</div>

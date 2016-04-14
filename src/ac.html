@@ -1,0 +1,45 @@
+<div>
+<h1>数据CRUD支持</h1>
+<blockquote>
+    <p>伪ActiveRecord的使用
+    </p>
+</blockquote>
+<p>以下是一些crud的例子 <br>
+我们有一个user类</p>
+
+<figure class="highlight html">
+    <pre>
+  public static void main(String args[]){
+      //数据库链接 这一部必须要加在初始化的thunder里。
+      DB.open("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1/test", "root", "root");
+      User user = new User();
+      user.setAge(3);
+      user.setId(34);
+      user.setPassword("");
+
+      Model.select("id","username").list(User.class);
+
+      Model.where("id","26").list(User.class);
+      //id＝25并且根据id排序的user
+      Model.where("id","25").orderBy("id").one(User.class);
+
+      List&lt;User&gt; users = Model.find_by_sql("select * from user");
+
+      Model.find_all(User.class);
+      //id大于20的user
+      Model.whereGt("id","20").list(User.class);
+
+      Model.save(user);
+
+      Model.where("id","28").update(user);
+
+      //update的数据必须带id 否则会报错
+      Model.update(user);
+
+      //删除
+      Model.delete(1,User.class);
+  }
+}
+    </pre>
+</figure>
+</div>

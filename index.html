@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>Thunder java</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Thunder java ,simple and fast mvc framework">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Dosis:300,500&text=Vue.js' rel='stylesheet' type='text/css'>
+  <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
+<style>
+  #mobile-bar .menu-button {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 8px;
+    left: 12px;
+    background: url("./src/menu.png") center center no-repeat;
+    background-size: 24px;
+  }
+  #search-query {
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding: 0 15px 0 30px;
+    border: 1px solid #e3e3e3;
+    outline: none;
+    border-radius: 15px;
+    margin-right: 10px;
+    transition: border-color 0.2s ease;
+    background: #fff url("/src/search.png") 8px 5px no-repeat;
+    background-size: 20px;
+  }
+</style>
+</head>
+
+<body>
+<div id="mobile-bar">
+  <a class="menu-button"></a>
+  <a class="logo" href="/"></a>
+</div>
+
+<div id="header">
+  <a id="logo" href="/">
+    <img src="/src/logo.png">
+    <span>Thunder Java</span>
+  </a>
+  <ul id="nav">
+    <li>
+      <form id="search-form">
+        <input type="text" id="search-query" class="st-default-search-input">
+      </form>
+    </li>
+    <li><a href="#" class="nav-link">教程</a></li>
+    <li><a href="#" class="nav-link">API</a></li>
+    <li><a href="/" class="nav-link current">示例</a></li>
+    <li><a href="#" class="nav-link">博客(关闭)</a></li>
+
+
+
+  </ul>
+</div>
+<div id="app">
+<div id="main">
+
+
+  <div class="sidebar">
+    <ul class="main-menu">
+      <li>
+        <form id="search-form">
+          <input type="text" id="search-query" class="st-default-search-input">
+        </form>
+      </li>
+      <li><a href="#" class="nav-link">敬请期待</a></li>
+      <li><a href="#" class="nav-link">API</a></li>
+      <li><a href="/" class="nav-link current">示例</a></li>
+      <li><a href="#" class="nav-link">博客(已经关了)</a></li>
+
+
+    </ul>
+    <div class="list">
+
+      <h2>
+
+        Thunder示例
+
+      </h2>
+      <ul class="menu-root">
+
+        <li>
+
+          <a v-link="{ path: '/start' }" class="sidebar-link">开始使用</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/config' }" class="sidebar-link">一般配置</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/routes' }" class="sidebar-link">路由风格</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/ac' }" class="sidebar-link">数据CRUD</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/spring' }" class="sidebar-link">AOP&&IOC</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/other' }" class="sidebar-link">其他</a>
+        </li>
+
+        <li>
+          <a v-link="{ path: '/special' }" class="sidebar-link">使用技巧</a>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="content examples with-sidebar">
+    <div id="ad">
+
+    </div>
+
+ <div   style="width: 100%;height: 100%">
+   <router-view  class="test" v-transition="test" transition-mode="out-in">
+
+
+   </router-view>
+ </div>
+    <div class="footer">
+   如有问题 可以联系 QQ:351711778<br><a href="https://github.com/icepoint0/thunder">thunder 项目地址</a>
+      <br>
+      Powered by <a href="http://vuejs.github.io/vue-router/zh-cn">Vue-router</a> && <a href="https://github.com/webpack/webpack">WebPack</a>
+    <br>页面CSS采自<a href="http://vuejs.org/">Vue.js</a>官网
+    </div>
+  </div>
+
+
+</div>
+</div>
+<script src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script src="/src/smooth-scroll.min.js"></script>
+<script src="/src/common.js"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    FastClick.attach(document.body);
+  }, false);
+</script>
+<script src="build/build.js"></script>
+
+</body>
+</html>

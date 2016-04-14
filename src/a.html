@@ -1,0 +1,34 @@
+
+<div >
+    <h1>开始使用!</h1>
+    <h3>Hello world</h3>
+    <p>非 maven项目 - 首先克隆源码并且进行打包,导入jar包 进行web.xml进行配置 <br>(使用idea的同学需要同时导入servlet-api这个jar包 eclipse或myeclipse的同学直接导入jar包即可.关于后续的maven jar包发暂定) </p>
+
+    <figure class="highlight html">
+    <pre>
+   &lt;servlet&gt;
+        &lt;servlet-name&gt;thunder&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.thunder.web.ThunderDispatcher&lt;/servlet-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;lighting&lt;/param-name&gt;
+            &lt;param-value&gt;App&lt;/param-value&gt;
+        &lt;/init-param&gt;
+     &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    </pre>
+    </figure>
+
+    <p>在根目录下创建App.java 并且继承lighting接口</p>
+    <figure class="highlight html">
+        <pre>
+    public class App implements Lightning{
+        public void init(Thunder thunder) {
+
+            }
+       }
+        </pre>
+
+    </figure>
+
+    <p>这样我们第一个thunder应用就完成啦！(后续会做更多的配置)</p>
+</div>
